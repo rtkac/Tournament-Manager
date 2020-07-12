@@ -10,7 +10,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE);
 
-app.use(cors({ origin: 'http://localhost:8080' , credentials :  true}));
+app.use(cors({ origin: 'https://localhost:3000' , credentials :  true}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -55,8 +55,8 @@ app.post(`${API_USERS}/register`, (req, res) => {
 app.post(`${API_USERS}/login`, (req, res) => {
     User.findOne({'email': req.body.email}, (err, user) => {
         
-        console.log('------============');
-        console.log(req);
+        console.log('---------------------------------------------------------------------------------------');
+        // console.log(req);
         res.header("Access-Control-Allow-Credentials", true);
         // res.header("Access-Control-Allow-Origin", req.headers.origin);
         res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
@@ -67,7 +67,6 @@ app.post(`${API_USERS}/login`, (req, res) => {
         // __cfduid=dd62b4b52d8402d83a56cd9632fc44e2b1588848032; expires=Sat, 06-Jun-20 10:40:32 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax
 
         let options = {
-            domain: 'zentity.com',
             // maxAge: 1000 * 60 * 15, // would expire after 15 minutes
             httpOnly: true, // The cookie only accessible by the web server
             // signed: true // Indicates if the cookie should be signed
@@ -89,8 +88,13 @@ app.post(`${API_USERS}/login`, (req, res) => {
 
             user.generateToken((err, user) => {
                 if(err) return res.status(400).send(err);
+                console.log(user);
                 res.cookie('w_auth', user.token).status(200).json({
-                    success: true
+                    success: true,
+                    accessToken: user.token,
+                    email: user.email,
+                    name: user.name,
+                    lastname: user.lastname,
                 });
             });
         });

@@ -1,0 +1,34 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended", "tslint-react", "tslint-config-airbnb", "tslint-config-prettier"],
+    "jsRules": {},
+    "rules": {
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "interface-name": [true, "never-prefix"],
+      "only-arrow-functions": false,
+      "jsx-no-lambda": false,
+      "jsx-boolean-value": [true, "never"],
+      "member-access": false,
+      "semicolon": [true, "always"],
+      "no-console": {
+        "severity": "warning"
+      },
+      "no-bitwise": false,
+      "no-shadowed-variable": false,
+      "object-curly-newline": ["error", {
+        "ExportDeclaration": { "multiline": true, "minProperties": 10 }
+      }],
+      "import/extensions": ["error", { "ignorePackages": true }],
+      "max-line-length": false,
+      "variable-name": [true, "allow-pascal-case"],
+      "align": false,
+      "import-name": false,
+      "ter-arrow-parens": "always",
+      "object-shorthand-properties-first": false,
+      "react/jsx-one-expression-per-line": ["warning", { "allow": "single-child" }],
+      "react/require-default-props": false,
+      "react/destructuring-assignment": false
+    },
+    "rulesDirectory": []
+  }
