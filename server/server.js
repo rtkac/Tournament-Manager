@@ -91,10 +91,12 @@ app.post(`${API_USERS}/login`, (req, res) => {
                 console.log(user);
                 res.cookie('w_auth', user.token).status(200).json({
                     success: true,
-                    accessToken: user.token,
-                    email: user.email,
-                    name: user.name,
-                    lastname: user.lastname,
+                    info: {
+                        accessToken: user.token,
+                        email: user.email,
+                        name: user.name,
+                        lastname: user.lastname,
+                    }
                 });
             });
         });

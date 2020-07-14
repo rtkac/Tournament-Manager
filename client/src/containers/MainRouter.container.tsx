@@ -3,8 +3,15 @@ import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
+import { routes as ROUTES } from 'config/routes';
+
+import { authenticate } from 'actions/login.actions';
+
 import { AppState } from 'reducers/index.reducer';
 
+import MainLayout from 'layouts/Main.layout';
+import NotFound from 'containers/notFound/NotFound.container';
+import Dashboard from 'containers/dashboard/Dashboard.container';
 import Login from 'containers/login/Login.container';
 
 const MainRouter = (props: MainRouterProps) => {
@@ -21,40 +28,61 @@ const MainRouter = (props: MainRouterProps) => {
 //     );
 //   }
 
+  useEffect(() => {
+    // props.authenticate();
+  }, []);
+
   const routes = [
     {
-      path: '/login',
+      path: ROUTES.DASHBOARD,
+      component: () => <Dashboard/>,
+    },
+    {
+      path: ROUTES.LOGIN,
       component: () => <Login/>,
+    },
+    {
+      path: undefined,
+      component: NotFound,
     },
   ];
 
+  console.log('///////////////////////')
+  console.log(props);
+  console.log(props.t('header.logout'));
+
   return (
-    <>
-      {/* <MainLayout> */}
-        <Switch>
-          {routes.map((route, index) =>
-            route.component ? <Route key={index} path={route.path} exact component={route.component} /> : null,
-          )}
-        </Switch>
-      {/* </MainLayout> */}
-    </>
+    <MainLayout {...{...props}}>
+      <Switch>
+        {routes.map((route, index) =>
+          <Route key={index} path={route.path} exact component={route.component} />,
+        )}
+      </Switch>
+    </MainLayout>
   );
 };
 
 interface MainRouterProps extends RouteComponentProps {
-//   isAuthenticated: boolean;
-//   isAuthenticating: boolean;
+  t: any;
+  history: any;
+  match: any;
+  location: any;
+  isAuthenticated: boolean;
+  isAuthenticating: boolean;
 //   hasAuthenticationFailed: boolean;
 //   startActivation: (token: any) => void;
 //   logout: () => void;
 //   activeUser: ActiveUser;
+  authenticate: () => void;
 }
 
 const mapStateToProps = (state: AppState) => ({
-//   isAuthenticated: state.user.isAuthenticated,
-//   isAuthenticating: state.user.isAuthenticating,
+  isAuthenticating: state.user.isAuthenticating,
+  isAuthenticated: state.user.isAuthenticated,
 //   hasAuthenticationFailed: state.user.hasAuthenticationFailed,
 //   activeUser: state.user.activeUser,
 });
 
-export default withRouter(connect(mapStateToProps)(MainRouter));
+export default withRouter(connect(mapStateToProps, {
+  authenticate,
+})(MainRouter));

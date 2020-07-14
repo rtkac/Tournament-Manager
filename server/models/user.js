@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const SALT_I = 10;
+const TOKEN_EXPIRATION = '1h';
 
 const userSchema = mongoose.Schema({
     email: {
@@ -61,7 +62,9 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 userSchema.methods.generateToken = function(cb) {
     var _this = this;
-    var token = jwt.sign(_this._id.toHexString(), process.env.SECRET);
+    var token = jwt.sign(_this._id.toHexString(), process.env.SECRET, {
+        // expiresIn: TOKEN_EXPIRATION
+    });
 
     _this.token = token;
     _this.save(function(err, user) {

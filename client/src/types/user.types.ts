@@ -1,6 +1,10 @@
 export interface UserState {
-  accessToken: string;
-  email: string;
-  name: string;
-  lastName: string;
+  isAuthenticating: boolean;
+  isAuthenticated: boolean;
+  info: {
+    accessToken: string;
+    email: string;
+    name: string;
+    lastName: string;
+  }
 }
