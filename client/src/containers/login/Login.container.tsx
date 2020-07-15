@@ -1,34 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { startLogin, logout } from 'actions/login.actions';
+import { Button } from "baseui/button";
 
-import {Button, KIND} from 'baseui/button';
+import { startLogin } from 'actions/login.actions';
 
-const Login = (props) => {
-    return (
-        <div>
-            <Button
-              onClick={() => props.startLogin()}
-              startEnhancer={undefined}
-              endEnhancer={undefined}
-              kind={KIND.secondary}
-            >
-              Login
-            </Button>
-            <Button
-              onClick={() => props.logout()}
-              startEnhancer={undefined}
-              endEnhancer={undefined}
-              kind={KIND.secondary}
-            >
-              Logout
-            </Button>
-        </div>
-    )
-}
+const Login = (props: LoginProps) => {
+  const { startLogin } = props;
+
+  return (
+    <div>
+      <Button onClick={() => startLogin()}>Login</Button>
+    </div>
+  )
+};
+
+interface LoginProps {
+  startLogin: () => void;
+};
 
 export default connect(null, {
-    startLogin,
-    logout,
+  startLogin,
 })(Login);

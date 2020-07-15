@@ -17,10 +17,10 @@ const checkStatus = (dispatch) => (response) => {
     return response;
   }
 
-  if (response.status === 401) {
-    dispatch(logout());
-    // window.location.reload();
-  }
+  // if (response.status === 401) {
+  //   dispatch(logout());
+  //   window.location.reload();
+  // }
 
   const contentType = response.headers.get('Content-Type');
   if (!contentType || contentType.indexOf('json') > -1) {

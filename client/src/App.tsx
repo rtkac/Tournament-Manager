@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import {Client as Styletron} from 'styletron-engine-atomic';
-import {Provider as StyletronProvider} from 'styletron-react';
-import {LightTheme, BaseProvider} from 'baseui';
+import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
+import { LightTheme, BaseProvider } from 'baseui';
 
-import MainRouter from './containers/MainRouter.container';
-import { store } from './helpers/redux/store/configure-store';
+import MainRouter from 'router/MainRouter.container';
+import { store } from 'helpers/redux/store/configure-store';
 
 import './App.css';
 

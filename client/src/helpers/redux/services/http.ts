@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import _ from 'lodash';
 import { store } from '../store/configure-store';
 import { uuidv4Token } from '../../tokenHelper';
 
@@ -18,11 +17,11 @@ export default (url: string, opts?: RequestInit) => {
       ...optsHeaders,
     },
   };
-  const token = store.getState().user && store.getState().user.accessToken;
+  const token = store.getState().user && store.getState().user.info && store.getState().user.info.accessToken;
   if(token) {
     newOpts.headers = {
       ...newOpts.headers,
-      Authorization: `Bearer ${token.accessToken}`,
+      Authorization: `${token.accessToken}`,
     };
     newOpts.credentials = 'include';
   }

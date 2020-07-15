@@ -6,12 +6,8 @@ let auth = (req, res, next) => {
         if(err) throw err;
         if(!user) return res.status(401).json({
             success: false,
+            error: err,
         });
-        // if(!user) return res.json({
-        //     success: false,
-        //     error: true
-        // });
-
         req.token = token;
         req.user = user;
         next();

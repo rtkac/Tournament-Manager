@@ -6,7 +6,7 @@ import { StatefulMenu } from 'baseui/menu';
 
 const Dropdown = (props: DropdownProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  console.log(props);
+
   return (
     <Popover
       isOpen={isOpen}
