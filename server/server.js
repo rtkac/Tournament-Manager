@@ -88,7 +88,6 @@ app.post(`${API_USERS}/login`, (req, res) => {
 
             user.generateToken((err, user) => {
                 if(err) return res.status(400).send(err);
-                console.log(user);
                 res.cookie('w_auth', user.token).status(200).json({
                     success: true,
                     info: {

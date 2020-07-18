@@ -27,9 +27,6 @@ const Header = (props: HeaderProps) => {
 
   const [isDropdownLoading, setIsDropdownLoading] = useState(false);
 
-  console.log('-----------------');
-  console.log(props);
-
   const dropdownItems = isAuthenticated ? [
     {
       label: t(T.HEADER.PROFILE),

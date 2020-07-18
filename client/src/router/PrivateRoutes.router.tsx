@@ -18,8 +18,8 @@ interface PrivateRoutesProps {
   exact: boolean;
   isAuthenticated: boolean;
   restricted?: boolean;
-  path: any;
-  component: any;
+  path: string;
+  component: React.FunctionComponent;
 };
 
 export default PrivateRoutes;
