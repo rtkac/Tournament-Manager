@@ -28,8 +28,7 @@
       "object-shorthand-properties-first": false,
       "react/jsx-one-expression-per-line": ["warning", { "allow": "single-child" }],
       "react/require-default-props": false,
-      "react/destructuring-assignment": false,
-      "quotemark": [true, "single", "jsx-double"]
+      "react/destructuring-assignment": false
     },
     "rulesDirectory": []
   }

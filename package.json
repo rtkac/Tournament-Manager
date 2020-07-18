@@ -61,7 +61,12 @@
     "cross-env": "^5.2.0",
     "eslint-plugin-baseui": "^9.85.2",
     "husky": ">=4",
-    "lint-staged": ">=10"
+    "lint-staged": ">=10",
+    "prettier": "^1.18.2",
+    "tslint": "^5.16.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -85,7 +90,7 @@
   },
   "lint-staged": {
     "client/src/**/*.{js,jsx,ts,tsx}": [
-      "tslint --fix --project  ./tsconfig.json"
+      "tslint --fix --project  ./client/tsconfig.json -c ./client/tslint-strict.json"
     ],
     "client/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write",
