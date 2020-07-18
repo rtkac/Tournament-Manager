@@ -93,8 +93,7 @@
       "tslint --fix --project  ./client/tsconfig.json -c ./client/tslint-strict.json"
     ],
     "client/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
