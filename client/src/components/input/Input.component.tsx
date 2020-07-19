@@ -9,12 +9,19 @@ const InputComponent = (props: InputComponentProps) => {
 
   return (
     <FormControl label={props.label} error={t(props.errors[props.name]?.message)}>
-      <Input id={props.name} name={props.name} inputRef={props.inputRef} error={props.errors[props.name]?.message} />
+      <Input
+        id={props.name}
+        name={props.name}
+        type={props.type}
+        inputRef={props.inputRef}
+        error={props.errors[props.name]?.message}
+      />
     </FormControl>
   );
 };
 
 interface InputComponentProps {
+  type?: 'password';
   inputRef?: any;
   name: string;
   label?: string;

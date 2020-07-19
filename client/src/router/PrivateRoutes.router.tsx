@@ -2,24 +2,26 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { ROUTES } from 'router/routes';
 
-const PrivateRoutes = (props: PrivateRoutesProps) => {
-  const { isAuthenticated, path, component, exact } = props;
+const PrivateRoutes = (props) => {
+  const { isAuthenticated, path, exact, component: Component, layout: Layout, ...rest } = props;
 
-  return (
-    isAuthenticated ? (
-      <Route path={path} component={component} exact={exact} />
-    ) : (
-      <Redirect to={ROUTES.LOGIN} />
-    )
-  )
-};
-
-interface PrivateRoutesProps {
-  exact: boolean;
-  isAuthenticated: boolean;
-  restricted?: boolean;
-  path: string;
-  component: React.FunctionComponent;
+  return isAuthenticated ? (
+    <Route
+      path={path}
+      exact={exact}
+      render={(props) =>
+        Layout ? (
+          <Layout {...rest}>
+            <Component {...rest} />
+          </Layout>
+        ) : (
+          <Component {...rest} />
+        )
+      }
+    />
+  ) : (
+    <Redirect to={ROUTES.LOGIN} />
+  );
 };
 
 export default PrivateRoutes;

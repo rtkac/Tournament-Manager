@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useStyletron } from 'baseui';
 import T from 'i18n/translationsKeyMapping';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalButton } from 'baseui/modal';
@@ -9,6 +10,8 @@ import { ModalBodyDiv, ModalBodyIcon, ModalBodyPar } from './Modal.component.sty
 
 const ModalComponent = (props: ModalComponentProps) => {
   const { t } = useTranslation();
+  const [css, theme] = useStyletron();
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +34,16 @@ const ModalComponent = (props: ModalComponentProps) => {
         <ModalBody>
           <ModalBodyDiv>
             <ModalBodyIcon>
-              <Alert size={28} />
+              <Alert
+                size={28}
+                color={
+                  props.isSuccess
+                    ? theme.colors.positive
+                    : props.isError
+                    ? theme.colors.negative
+                    : theme.colors.primaryA
+                }
+              />
             </ModalBodyIcon>
             <ModalBodyPar>{props.body}</ModalBodyPar>
           </ModalBodyDiv>
@@ -48,6 +60,8 @@ interface ModalComponentProps {
   title?: string;
   body: React.ReactNode | string;
   isOpen: boolean;
+  isError?: boolean;
+  isSuccess?: boolean;
   closeHandler?: () => void;
 }
 

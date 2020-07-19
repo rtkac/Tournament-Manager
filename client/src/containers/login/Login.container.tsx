@@ -7,7 +7,7 @@ import T from 'i18n/translationsKeyMapping';
 
 import { startLogin } from 'actions/login.actions';
 
-import { Grid, Cell, ALIGNMENT } from 'baseui/layout-grid';
+import { Grid, Cell } from 'baseui/layout-grid';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import InputComponent from 'components/input/Input.component';
 import { validations } from './Login.validator';
@@ -15,11 +15,9 @@ import { validations } from './Login.validator';
 import Button from 'components/button/Button.component';
 import Modal from 'components/modal/Modal.component';
 
-import { LoginDiv } from './Login.container.style';
-
 enum OPEN_MODALS {
   NONE,
-  LOGIN,
+  LOGIN_ERROR,
 }
 
 enum FIELD_IDS {
@@ -55,7 +53,7 @@ const Login = (props: LoginProps) => {
           setIsLoading(false);
           if (res.error && !res.error.success && res.error.data.errCode) {
             setOpenModalMesssage(res.error.data.errCode);
-            setOpenModal(OPEN_MODALS.LOGIN);
+            setOpenModal(OPEN_MODALS.LOGIN_ERROR);
           }
         });
       });
@@ -64,42 +62,40 @@ const Login = (props: LoginProps) => {
 
   return (
     <>
-      <LoginDiv>
-        <Grid align={ALIGNMENT.center}>
-          <Cell skip={[0, 1.5, 3.5]} span={[8, 5]}>
-            <HeadingLevel>
-              <Heading styleLevel={3 as 1}>{t(T.LOGIN.FORM.TITLE.LABEL)}</Heading>
-            </HeadingLevel>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <InputComponent name={FIELD_IDS.EMAIL} errors={errors} inputRef={register} />
-              <InputComponent name={FIELD_IDS.PASSWORD} errors={errors} inputRef={register} />
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                overrides={{
-                  BaseButton: {
-                    style: () => {
-                      return {
-                        width: '100%',
-                      };
-                    },
-                  },
-                }}
-              >
-                {t(T.LOGIN.FORM.BUTTON.LOGIN.LABEL)}
-              </Button>
-            </form>
-          </Cell>
-        </Grid>
-      </LoginDiv>
+      <Grid>
+        <Cell skip={[0, 1.5, 3.5]} span={[8, 5]}>
+          <HeadingLevel>
+            <Heading styleLevel={3 as 1}>{t(T.LOGIN.FORM.TITLE.LABEL)}</Heading>
+          </HeadingLevel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <InputComponent
+              name={FIELD_IDS.EMAIL}
+              label={t(T.LOGIN.FORM.EMAIL.LABEL)}
+              errors={errors}
+              inputRef={register}
+            />
+            <InputComponent
+              name={FIELD_IDS.PASSWORD}
+              label={t(T.LOGIN.FORM.PASSWORD.LABEL)}
+              type="password"
+              errors={errors}
+              inputRef={register}
+            />
+            <Button type="submit" isLoading={isLoading} fullWidth>
+              {t(T.LOGIN.FORM.BUTTON.LOGIN.LABEL)}
+            </Button>
+          </form>
+        </Cell>
+      </Grid>
 
       {/* MODALS */}
       <>
         <Modal
-          isOpen={openModal === OPEN_MODALS.LOGIN}
+          isOpen={openModal === OPEN_MODALS.LOGIN_ERROR}
           closeHandler={hideModal}
           body={t(openModalMessage)}
           title={t(T.LOGIN.FORM.TITLE.LABEL)}
+          isError
         />
       </>
       {/* / MODALS */}

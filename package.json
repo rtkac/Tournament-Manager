@@ -10,6 +10,7 @@
     "start_server": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "yarn --cwd client run start",
+    "build": "yarn --cwd client run build",
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "dependencies": {

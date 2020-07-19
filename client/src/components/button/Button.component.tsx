@@ -12,7 +12,21 @@ const ButtonComponent = (props: ButtonComponentProps) => {
       disabled={props.isLoading || props.disabled}
       isLoading={props.isLoading}
       isSelected={props.isSelected}
-      overrides={props.overrides}
+      overrides={
+        props.overrides
+          ? props.overrides
+          : props.fullWidth
+          ? {
+              BaseButton: {
+                style: () => {
+                  return {
+                    width: '100%',
+                  };
+                },
+              },
+            }
+          : ''
+      }
     >
       {props.children}
     </Button>
@@ -37,6 +51,7 @@ interface ButtonComponentProps {
   isSelected?: boolean;
   children: ReactNode;
   overrides?: any;
+  fullWidth?: boolean;
 }
 
 export default ButtonComponent;

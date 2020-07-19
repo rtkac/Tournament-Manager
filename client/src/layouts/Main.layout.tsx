@@ -1,13 +1,22 @@
 import React from 'react';
+import { History, LocationState } from 'history';
 import { connect } from 'react-redux';
-import {Grid, Cell} from 'baseui/layout-grid';
+
+import { Grid, Cell } from 'baseui/layout-grid';
 
 import Header from 'components/header/Header.component';
 
-import { MainLayoutDiv } from './Main.layout.style.js';
+import { MainLayoutDiv, MainLayoutContentDiv } from './Main.layout.style.js';
 
-const MainLayout = (props: MainLayoutProps)  => {
-  const {t, history: {push}, children, user, isAuthenticating, isAuthenticated} = props;
+const MainLayout = (props: MainLayoutProps) => {
+  const {
+    t,
+    history: { push },
+    children,
+    user,
+    isAuthenticating,
+    isAuthenticated,
+  } = props;
 
   return (
     <MainLayoutDiv>
@@ -18,26 +27,26 @@ const MainLayout = (props: MainLayoutProps)  => {
       </Grid>
       <Grid>
         <Cell span={12}>
-          {children}
+          <MainLayoutContentDiv>{children}</MainLayoutContentDiv>
         </Cell>
       </Grid>
     </MainLayoutDiv>
-  )
+  );
 };
 
 interface MainLayoutProps {
   t: any;
-  history: any;
+  history: History<LocationState>;
   children?: React.ReactNode;
   isAuthenticating: boolean;
   isAuthenticated: boolean;
   user: {
     name: string;
   };
-};
+}
 
 const mapStateToProps = (state) => ({
-  user: state.user.info
+  user: state.user.info,
 });
 
 export default connect(mapStateToProps)(MainLayout);
