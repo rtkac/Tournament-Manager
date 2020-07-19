@@ -10,40 +10,37 @@ const Dropdown = (props: DropdownProps) => {
   return (
     <Popover
       isOpen={isOpen}
-      onClick={() => setIsOpen(s => !s)}
+      onClick={() => setIsOpen((s) => !s)}
       content={
         <StatefulMenu
           items={props.items}
           onItemSelect={(selectedItem) => {
-            selectedItem.item.onClick && selectedItem.item.onClick();
-            setIsOpen(false)
+            selectedItem.item.onClick();
+            setIsOpen(false);
           }}
         />
       }
     >
-      <Button
-        {...props}
-        endEnhancer={() => <TriangleDown size={24} />}
-      >
+      <Button {...props} endEnhancer={() => <TriangleDown size={24} />}>
         {props.children}
       </Button>
     </Popover>
   );
 };
 
+Dropdown.defaultProps = {
+  size: SIZE.compact,
+};
+
 interface DropdownProps {
   children: React.ReactNode;
   items: Items[];
   size?: keyof typeof SIZE;
-};
+}
 
 interface Items {
   label: string;
   onClick?: any;
-};
-
-Dropdown.defaultProps = {
-  size: SIZE.compact,
-};
+}
 
 export default Dropdown;

@@ -1,23 +1,42 @@
 export default {
-    NOT_FOUND: {
-        TITLE: 'not_found.title',
-        SUB_TITLE: 'not_found.sub_title',
+  HEADER: {
+    LOGIN: 'header.login',
+    LOGOUT: 'header.logout',
+    PROFILE: 'header.profile',
+    SIGNUP: 'header.signup',
+    TITLE: {
+      LABEL: 'header.title.label',
     },
-    HEADER: {
-        TITLE: {
-            LABEL: 'header.title.label',
+    TOURNAMENT: {
+      CREATE: 'header.tournament.create',
+      LIST: 'header.tournament.list',
+    },
+    USER: {
+      LABEL: 'header.user.label',
+      NAME: 'header.user.name',
+    },
+  },
+  LOGIN: {
+    FORM: {
+      BUTTON: {
+        LOGIN: {
+          LABEL: 'login.form.button.login.label',
         },
-        USER: {
-            LABEL: 'header.user.label',
-            NAME: 'header.user.name'
-        },
-        LOGIN: 'header.login',
-        SIGNUP: 'header.signup',
-        LOGOUT: 'header.logout',
-        PROFILE: 'header.profile',
-        TOURNAMENT: {
-            CREATE: 'header.tournament.create',
-            LIST: 'header.tournament.list',
-        }
-    }
-}
+      },
+      TITLE: {
+        LABEL: 'login.form.title.label',
+      },
+    },
+  },
+  MODAL: {
+    BUTTON: {
+      CLOSE: {
+        LABEL: 'modal.button.close.label',
+      },
+    },
+  },
+  NOT_FOUND: {
+    SUB_TITLE: 'not_found.sub_title',
+    TITLE: 'not_found.title',
+  },
+};

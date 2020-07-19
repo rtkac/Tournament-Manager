@@ -2,6 +2,8 @@ import fetch from 'helpers/redux/services/http';
 import * as actionTypes from './actionTypes';
 import endpoints from './endpoints';
 
+import { StartLoginState } from 'types/login.types';
+
 export const authenticate = () => {
   const promise = fetch(endpoints.AUTH_ENDPOINT);
   return {
@@ -22,15 +24,10 @@ export const logout = () => {
   };
 };
 
-// import { NBToken, ZenLoginState } from '../types';
-
-export const startLogin = () => {
+export const startLogin = (requestData: StartLoginState) => {
   const promise = fetch(endpoints.LOGIN_ENDPOINT, {
     method: 'POST',
-    body: JSON.stringify({
-      email: 'test2@example.com',
-      password: '123456',
-    }),
+    body: JSON.stringify(requestData),
   });
   return {
     onRequest: actionTypes.FETCH_LOGIN_START_TRIGGERED,

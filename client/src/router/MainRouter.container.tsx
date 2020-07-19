@@ -23,18 +23,18 @@ import PrivateRouter from 'router/PrivateRoutes.router';
 import { MainRouterLoadingDiv } from 'router/MainRouter.container.style';
 
 const MainRouter = (props: MainRouterProps) => {
-  const { isAuthenticating, isAuthenticated, authenticate } = props;
+  const { t, isAuthenticating, isAuthenticated, authenticate } = props;
 
-//   if (hasAuthenticationFailed) {
-//     return (
-//       'fail'
-//     );
-//   }
-//   if (isAuthenticating && !isAuthenticated) {
-//     return (
-//       'loading...'
-//     );
-//   }
+  //   if (hasAuthenticationFailed) {
+  //     return (
+  //       'fail'
+  //     );
+  //   }
+  //   if (isAuthenticating && !isAuthenticated) {
+  //     return (
+  //       'loading...'
+  //     );
+  //   }
 
   useEffect(() => {
     authenticate();
@@ -44,29 +44,29 @@ const MainRouter = (props: MainRouterProps) => {
     PUBLIC: [
       {
         path: ROUTES.DASHBOARD,
-        component: () => <Dashboard/>,
+        component: () => <Dashboard t={t} />,
       },
       {
         path: ROUTES.LOGIN,
-        component: () => <Login/>,
+        component: () => <Login t={t} />,
         restricted: true,
       },
       {
         path: ROUTES.SIGNUP,
-        component: () => <Signup/>,
+        component: () => <Signup t={t} />,
         restricted: true,
       },
     ],
     PRIVATE: [
       {
         path: ROUTES.PROFILE,
-        component: () => <Profile/>,
+        component: () => <Profile t={t} />,
       },
     ],
   };
 
   return (
-    <MainLayout {...{...props}}>
+    <MainLayout {...{ ...props }}>
       {isAuthenticating ? (
         <MainRouterLoadingDiv>
           <Spinner />
@@ -94,19 +94,21 @@ interface MainRouterProps extends RouteComponentProps {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   authenticate: () => void;
-//   hasAuthenticationFailed: boolean;
-//   startActivation: (token: any) => void;
-//   logout: () => void;
-//   activeUser: ActiveUser;
+  //   hasAuthenticationFailed: boolean;
+  //   startActivation: (token: any) => void;
+  //   logout: () => void;
+  //   activeUser: ActiveUser;
 }
 
 const mapStateToProps = (state: AppState) => ({
   isAuthenticating: state.user.isAuthenticating,
   isAuthenticated: state.user.isAuthenticated,
-//   hasAuthenticationFailed: state.user.hasAuthenticationFailed,
-//   activeUser: state.user.activeUser,
+  //   hasAuthenticationFailed: state.user.hasAuthenticationFailed,
+  //   activeUser: state.user.activeUser,
 });
 
-export default withRouter(connect(mapStateToProps, {
-  authenticate,
-})(MainRouter));
+export default withRouter(
+  connect(mapStateToProps, {
+    authenticate,
+  })(MainRouter),
+);

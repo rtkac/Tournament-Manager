@@ -76,14 +76,14 @@ app.post(`${API_USERS}/login`, (req, res) => {
         // Set cookie
         res.cookie('testCookie', `__${new Date().getMinutes()}_${new Date().getSeconds()}`, options);
 
-        if(!user) return res.json({
+        if(!user) return res.status(401).json({
             success: false,
-            errCode: 'auth_login_email_not_found'
+            errCode: 'error.code.auth_login_email_not_found'
         });
         user.comparePassword(req.body.password, (err, isMatch) => {
-            if(!isMatch) return res.json({
+            if(!isMatch) return res.status(401).json({
                 success: false,
-                errCode: 'auth_login_wrong_password'
+                errCode: 'error.code.auth_login_wrong_password'
             });
 
             user.generateToken((err, user) => {

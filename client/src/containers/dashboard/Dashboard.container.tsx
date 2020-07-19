@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Dashboard = () => {
-  return (
-    <div>
-      dashboard
-    </div>
-  )
+const Dashboard = (props: DashboardProps) => {
+  return <div>dashboard</div>;
 };
+
+interface DashboardProps {
+  t: any;
+}
 
 export default Dashboard;

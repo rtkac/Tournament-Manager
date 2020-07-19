@@ -14,45 +14,47 @@ import {
   StyledNavigationList as NavigationList,
 } from 'baseui/header-navigation';
 import { ButtonGroup, SIZE } from 'baseui/button-group';
-import { Button } from 'baseui/button';
 
+import Button from 'components/button/Button.component';
 import Dropdown from 'components/dropdown/Dropdown.component';
 import Spinner from 'components/spinner/Spinner.component';
 
 import { HeaderLinkButton } from './Header.component.style';
-
 
 const Header = (props: HeaderProps) => {
   const { t, push, logout, user, isAuthenticated, isAuthenticating } = props;
 
   const [isDropdownLoading, setIsDropdownLoading] = useState(false);
 
-  const dropdownItems = isAuthenticated ? [
-    {
-      label: t(T.HEADER.PROFILE),
-      onClick: () => push(ROUTES.PROFILE),
-    },
-    {
-      label: t(T.HEADER.LOGOUT),
-      onClick: () => Promise.resolve(setIsDropdownLoading(true)).then(() => logout().then(() => setIsDropdownLoading(false))),
-    },
-  ] : [
-    {
-      label: t(T.HEADER.LOGIN),
-      onClick: () => push(ROUTES.LOGIN),
-    },
-    {
-      label: t(T.HEADER.SIGNUP),
-      onClick: () => push(ROUTES.SIGNUP),
-    },
-  ];
+  const dropdownItems = isAuthenticated
+    ? [
+        {
+          label: t(T.HEADER.PROFILE),
+          onClick: () => push(ROUTES.PROFILE),
+        },
+        {
+          label: t(T.HEADER.LOGOUT),
+          onClick: () =>
+            Promise.resolve(setIsDropdownLoading(true)).then(() => logout().then(() => setIsDropdownLoading(false))),
+        },
+      ]
+    : [
+        {
+          label: t(T.HEADER.LOGIN),
+          onClick: () => push(ROUTES.LOGIN),
+        },
+        {
+          label: t(T.HEADER.SIGNUP),
+          onClick: () => push(ROUTES.SIGNUP),
+        },
+      ];
 
   const getLanguage = i18n.language || window.localStorage.i18nextLng;
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
 
-  const langs = Object.values(LANGS).map(lang => ({
+  const langs = Object.values(LANGS).map((lang) => ({
     label: lang,
     onClick: () => changeLanguage(lang.toLowerCase()),
     isSelected: getLanguage === lang.toLowerCase(),
@@ -70,10 +72,9 @@ const Header = (props: HeaderProps) => {
       isVisible: isAuthenticated,
     },
   ];
-  
+
   return (
     <HeaderNavigation>
-
       <NavigationList $align={ALIGN.left}>
         <NavigationItem>
           <HeaderLinkButton onClick={() => push(ROUTES.DASHBOARD)}>{t(T.HEADER.TITLE.LABEL)}</HeaderLinkButton>
@@ -81,32 +82,42 @@ const Header = (props: HeaderProps) => {
       </NavigationList>
 
       <NavigationList $align={ALIGN.center} />
-      
+
       <NavigationList $align={ALIGN.right}>
-        {headerItems.map((item, index) => item.isVisible && (
-          <NavigationItem key={`link-${index}`}>
-            <HeaderLinkButton onClick={item.onClick}>{item.label}</HeaderLinkButton>
-          </NavigationItem>
-        ))}
+        {headerItems.map(
+          (item, index) =>
+            item.isVisible && (
+              <NavigationItem key={`link-${index}`}>
+                <HeaderLinkButton onClick={item.onClick}>{item.label}</HeaderLinkButton>
+              </NavigationItem>
+            ),
+        )}
       </NavigationList>
 
       <NavigationList $align={ALIGN.right}>
         <NavigationItem>
-          <Dropdown size={SIZE.compact} items={dropdownItems}>{isAuthenticating || isDropdownLoading ? (
-            <Spinner size={15} theme={THEME.LIGHT} />
-          ) : (
-            user.name || t(T.HEADER.USER.LABEL)
-          )}</Dropdown>
+          <Dropdown size={SIZE.compact} items={dropdownItems}>
+            {isAuthenticating || isDropdownLoading ? (
+              <Spinner size={15} theme={THEME.LIGHT} />
+            ) : (
+              user.name || t(T.HEADER.USER.LABEL)
+            )}
+          </Dropdown>
         </NavigationItem>
-        <ButtonGroup size={SIZE.compact} selected={[langs.findIndex(lang => lang.isSelected)]}>
+        <ButtonGroup size={SIZE.compact} selected={[langs.findIndex((lang) => lang.isSelected)]}>
           {langs.map((lang, index) => (
-            <Button key={`lang-${index}`} onClick={lang.isSelected ? () => null : lang.onClick}>{lang.label}</Button>
+            <Button
+              key={`lang-${index}`}
+              isSelected={lang.isSelected}
+              onClick={lang.isSelected ? () => null : lang.onClick}
+            >
+              {lang.label}
+            </Button>
           ))}
         </ButtonGroup>
       </NavigationList>
-
     </HeaderNavigation>
-  )
+  );
 };
 
 interface HeaderProps {
@@ -118,7 +129,7 @@ interface HeaderProps {
   user: {
     name: string;
   };
-};
+}
 
 export default connect(null, {
   logout,
