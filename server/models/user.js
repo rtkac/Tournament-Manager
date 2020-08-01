@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         required: true,
         maxlength: 100
     },
-    lastname: {
+    lastName: {
         type: String,
         required: true,
         maxlength: 100
@@ -33,7 +33,17 @@ const userSchema = mongoose.Schema({
     },
     token: {
         type: String
-    }
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+        expires: 43200
+    },
 });
 
 userSchema.pre('save', function(next) {
@@ -62,9 +72,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 userSchema.methods.generateToken = function(cb) {
     var _this = this;
-    var token = jwt.sign(_this._id.toHexString(), process.env.SECRET, {
-        // expiresIn: TOKEN_EXPIRATION
-    });
+    var token = jwt.sign(_this._id.toHexString(), process.env.SECRET);
 
     _this.token = token;
     _this.save(function(err, user) {

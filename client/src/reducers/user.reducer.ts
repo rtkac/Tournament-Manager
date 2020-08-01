@@ -52,7 +52,7 @@ export default function userReducer(state = initialState, action): UserState {
           accessToken: action.response.info.accessToken,
           email: action.response.info.email,
           name: action.response.info.name,
-          lastName: action.response.info.lastname,
+          lastName: action.response.info.lastName,
         },
       };
     }

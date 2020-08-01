@@ -18,7 +18,9 @@ import Login from 'containers/login/Login.container';
 import Signup from 'containers/signup/Signup.container';
 import Profile from 'containers/profile/Profile.container';
 import ProfileEdit from 'containers/profile-edit/ProfileEdit.container';
-import ChangePassword from 'containers/changePassword/ChangePassword.container';
+import ChangePassword from 'containers/change-password/ChangePassword.container';
+import Confirmation from 'containers/confirmation/Confirmation.container';
+
 import Spinner from 'components/spinner/Spinner.component';
 
 import PublicRouter from 'router/PublicRoutes.router';
@@ -41,7 +43,9 @@ const MainRouter = (props: MainRouterProps) => {
   //   }
 
   useEffect(() => {
-    authenticate();
+    if (!props.location.pathname.includes('confirmation')) {
+      authenticate();
+    }
   }, [authenticate]);
 
   const historyProps = {
@@ -67,6 +71,12 @@ const MainRouter = (props: MainRouterProps) => {
       {
         path: ROUTES.SIGNUP,
         component: Signup,
+        restricted: true,
+        layout: '',
+      },
+      {
+        path: ROUTES.CONFIRMATION,
+        component: Confirmation,
         restricted: true,
         layout: '',
       },

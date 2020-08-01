@@ -33,37 +33,39 @@ const Profile = (props: ProfileProps) => {
 
   return (
     <MainLayoutContentDiv>
-      <FlexGrid
-        flexGridColumnCount={[1, 1, 3]}
-        flexGridColumnGap="scale800"
-        flexGridRowGap="scale800"
-        marginBottom="scale800"
-        flexDirection={['column', 'column', 'row']}
-      >
-        <FlexGridItem>
-          <Card>
-            <StyledBody>
-              <AvatarDiv>
-                <Avatar name={`${userInfo.name} ${userInfo.lastName}`} />
-              </AvatarDiv>
-              <Menu
-                items={[
-                  {
-                    label: t(T.PROFILE.MENU.PROFILE.LABEL),
-                    onClick: () => history.push(ROUTES.PROFILE),
-                  },
-                  {
-                    label: t(T.PROFILE.MENU.CHANGE_PASSWORD.LABEL),
-                    onClick: () => history.push(ROUTES.CHANGE_PASSWORD),
-                  },
-                ]}
-              />
-            </StyledBody>
-          </Card>
-        </FlexGridItem>
-        <FlexGridItem display="none"/>
-        <FlexGridItem {...wideGridItemProps}>{children}</FlexGridItem>
-      </FlexGrid>
+      <div style={{ width: '100%' }}>
+        <FlexGrid
+          flexGridColumnCount={[1, 1, 3]}
+          flexGridColumnGap="scale800"
+          flexGridRowGap="scale800"
+          marginBottom="scale800"
+          flexDirection={['column', 'column', 'row']}
+        >
+          <FlexGridItem>
+            <Card>
+              <StyledBody>
+                <AvatarDiv>
+                  <Avatar name={`${userInfo.name || ''} ${userInfo.lastName || ''}`} />
+                </AvatarDiv>
+                <Menu
+                  items={[
+                    {
+                      label: t(T.PROFILE.MENU.PROFILE.LABEL),
+                      onClick: () => history.push(ROUTES.PROFILE),
+                    },
+                    {
+                      label: t(T.PROFILE.MENU.CHANGE_PASSWORD.LABEL),
+                      onClick: () => history.push(ROUTES.CHANGE_PASSWORD),
+                    },
+                  ]}
+                />
+              </StyledBody>
+            </Card>
+          </FlexGridItem>
+          <FlexGridItem display="none" />
+          <FlexGridItem {...wideGridItemProps}>{children}</FlexGridItem>
+        </FlexGrid>
+      </div>
     </MainLayoutContentDiv>
   );
 };

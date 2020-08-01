@@ -1,9 +1,17 @@
 import * as yup from 'yup';
 
-export const validations = yup.object().shape({
-  email: yup
-    .string()
-    .required('login.email.error.required')
-    .email('login.email.error.format'),
-  password: yup.string().required('login.password.error.required'),
-});
+interface Login {
+  email: string;
+  password: string;
+}
+
+export const validations: yup.ObjectSchema<Login> = yup
+  .object()
+  .shape({
+    email: yup
+      .string()
+      .required('validation.email.error.required')
+      .email('validation.email.error.format'),
+    password: yup.string().required('validation.password.error.required'),
+  })
+  .defined();

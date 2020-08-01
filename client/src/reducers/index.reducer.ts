@@ -3,9 +3,11 @@ import { combineReducers } from 'redux';
 import * as actionTypes from 'actions/actionTypes';
 
 import user from './user.reducer';
+import football from './football.reducer';
 
 const appReducer = combineReducers({
-    user,
+  user,
+  football,
 });
 
 const mainReducer = (state, action) => {

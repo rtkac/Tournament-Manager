@@ -19,7 +19,7 @@ import Button from 'components/button/Button.component';
 import Dropdown from 'components/dropdown/Dropdown.component';
 import Spinner from 'components/spinner/Spinner.component';
 
-import { HeaderLinkButton } from './Header.component.style';
+import { HeaderDiv, HeaderLinkButton } from './Header.component.style';
 
 const Header = (props: HeaderProps) => {
   const { t, push, logout, user, isAuthenticated, isAuthenticating } = props;
@@ -75,47 +75,49 @@ const Header = (props: HeaderProps) => {
 
   return (
     <HeaderNavigation>
-      <NavigationList $align={ALIGN.left}>
-        <NavigationItem>
-          <HeaderLinkButton onClick={() => push(ROUTES.DASHBOARD)}>{t(T.HEADER.TITLE.LABEL)}</HeaderLinkButton>
-        </NavigationItem>
-      </NavigationList>
+      <HeaderDiv>
+        <NavigationList $align={ALIGN.left}>
+          <NavigationItem>
+            <HeaderLinkButton onClick={() => push(ROUTES.DASHBOARD)}>{t(T.HEADER.TITLE.LABEL)}</HeaderLinkButton>
+          </NavigationItem>
+        </NavigationList>
 
-      <NavigationList $align={ALIGN.center} />
+        <NavigationList $align={ALIGN.center} />
 
-      <NavigationList $align={ALIGN.right}>
-        {headerItems.map(
-          (item, index) =>
-            item.isVisible && (
-              <NavigationItem key={`link-${index}`}>
-                <HeaderLinkButton onClick={item.onClick}>{item.label}</HeaderLinkButton>
-              </NavigationItem>
-            ),
-        )}
-      </NavigationList>
+        <NavigationList $align={ALIGN.right}>
+          {headerItems.map(
+            (item, index) =>
+              item.isVisible && (
+                <NavigationItem key={`link-${index}`}>
+                  <HeaderLinkButton onClick={item.onClick}>{item.label}</HeaderLinkButton>
+                </NavigationItem>
+              ),
+          )}
+        </NavigationList>
 
-      <NavigationList $align={ALIGN.right}>
-        <NavigationItem>
-          <Dropdown size={SIZE.compact} items={dropdownItems}>
-            {isAuthenticating || isDropdownLoading ? (
-              <Spinner size={15} theme={THEME.LIGHT} />
-            ) : (
-              user.name || t(T.HEADER.USER.LABEL)
-            )}
-          </Dropdown>
-        </NavigationItem>
-        <ButtonGroup size={SIZE.compact} selected={[langs.findIndex((lang) => lang.isSelected)]}>
-          {langs.map((lang, index) => (
-            <Button
-              key={`lang-${index}`}
-              isSelected={lang.isSelected}
-              onClick={lang.isSelected ? () => null : lang.onClick}
-            >
-              {lang.label}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </NavigationList>
+        <NavigationList $align={ALIGN.right}>
+          <NavigationItem>
+            <Dropdown size={SIZE.compact} items={dropdownItems}>
+              {isAuthenticating || isDropdownLoading ? (
+                <Spinner size={15} theme={THEME.LIGHT} />
+              ) : (
+                user.name || t(T.HEADER.USER.LABEL)
+              )}
+            </Dropdown>
+          </NavigationItem>
+          <ButtonGroup size={SIZE.compact} selected={[langs.findIndex((lang) => lang.isSelected)]}>
+            {langs.map((lang, index) => (
+              <Button
+                key={`lang-${index}`}
+                isSelected={lang.isSelected}
+                onClick={lang.isSelected ? () => null : lang.onClick}
+              >
+                {lang.label}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </NavigationList>
+      </HeaderDiv>
     </HeaderNavigation>
   );
 };

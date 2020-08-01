@@ -15,7 +15,7 @@ const ButtonGroup = (props: ButtonGroupProps) => {
   return (
     <ButtonGroupDiv>
       {items.map((btn, index) => (
-        <>
+        <React.Fragment key={index}>
           <Button
             key={index}
             {...btn}
@@ -33,7 +33,7 @@ const ButtonGroup = (props: ButtonGroupProps) => {
             {btn.label}
           </Button>
           {index + 1 < items.length && <span className={space} />}
-        </>
+        </React.Fragment>
       ))}
     </ButtonGroupDiv>
   );

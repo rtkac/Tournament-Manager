@@ -18,6 +18,10 @@ const ProfileInfo = (props: ProfileInfoProps) => {
       label: t(T.PROFILE.INFO.EMAIL.LABEL),
       value: userInfo.email,
     },
+    {
+      label: t(T.PROFILE.INFO.FAVOURITE_TEAM.LABEL),
+      value: '-',
+    },
   ];
 
   return (

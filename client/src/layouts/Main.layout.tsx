@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { Grid, Cell } from 'baseui/layout-grid';
 
 import Header from 'components/header/Header.component';
+import Footer from 'components/footer/Footer.component';
 
-import { MainLayoutDiv, MainLayoutContentDiv } from './Main.layout.style.js';
+import { MainLayoutDiv, MainLayoutContentDiv, ContentDiv } from './Main.layout.style.js';
 
 const MainLayout = (props: MainLayoutProps) => {
   const {
@@ -20,16 +21,15 @@ const MainLayout = (props: MainLayoutProps) => {
 
   return (
     <MainLayoutDiv>
+      <Header t={t} push={push} user={user} isAuthenticating={isAuthenticating} isAuthenticated={isAuthenticated} />
       <Grid>
         <Cell span={12}>
-          <Header t={t} push={push} user={user} isAuthenticating={isAuthenticating} isAuthenticated={isAuthenticated} />
+          <MainLayoutContentDiv>
+            <ContentDiv>{children}</ContentDiv>
+          </MainLayoutContentDiv>
         </Cell>
       </Grid>
-      <Grid>
-        <Cell span={12}>
-          <MainLayoutContentDiv>{children}</MainLayoutContentDiv>
-        </Cell>
-      </Grid>
+      <Footer />
     </MainLayoutDiv>
   );
 };
