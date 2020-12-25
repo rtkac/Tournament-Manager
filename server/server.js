@@ -6,6 +6,7 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+// const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
@@ -18,6 +19,17 @@ app.use(cors({ origin: 'https://localhost:3000', credentials:  true}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+// app.use(expressCspHeader({
+//     directives: {
+//         'default-src': [SELF],
+//         'script-src': [SELF, INLINE],
+//         'style-src': [SELF],
+//         'img-src': ['data:', 'zentity.com'],
+//         'worker-src': [SELF],
+//         'block-all-mixed-content': true,
+//     }
+// }));
 
 // Endpoints
 const { API_USERS } = require('./config/endpoints');
@@ -98,11 +110,12 @@ app.post(`${API_USERS}/register`, (req, res) => {
 app.post(`${API_USERS}/login`, (req, res) => {
     User.findOne({'email': req.body.email}, (err, user) => {
 
+        res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Credentials", true);
-        res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+        res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
         res.header(
             "Access-Control-Allow-Headers",
-            "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+            "Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
         );
         res.header("Content-Type", "application/json;charset=UTF-8");
 

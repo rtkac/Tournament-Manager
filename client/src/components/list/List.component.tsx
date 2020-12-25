@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { useStyletron } from 'baseui';
 import { ListItem, ListItemLabel } from 'baseui/list';
 
 import { ListUl } from 'components/list/List.component.style';
 
 const List = (props: ListProps) => {
   const { items } = props;
-
-  const [css, theme] = useStyletron();
 
   return (
     <ListUl>

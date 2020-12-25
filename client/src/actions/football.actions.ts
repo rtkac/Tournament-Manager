@@ -21,3 +21,28 @@ export const fetchLeagues = () => {
     promise,
   };
 };
+
+export const fetchTeams = (leagueId: number) => {
+  const promise = fetch(
+    endpoints.TEAMS_ENDPOINT(leagueId),
+    {
+      headers: {
+        'X-Auth-Token': process.env.REACT_APP_API_FOOTBALL_TOKEN || '',
+      },
+    },
+    true,
+  );
+  return {
+    onRequest: actionTypes.FETCH_TEAMS_TRIGGERED,
+    onFailure: actionTypes.FETCH_TEAMS_FAILED,
+    onSuccess: actionTypes.FETCH_TEAMS_SUCCESS,
+    promise,
+  };
+};
+
+export const selectLeagueId = (leagueId: number) => {
+  return {
+    type: actionTypes.SELECT_LEAGUE_ID,
+    leagueId,
+  };
+};

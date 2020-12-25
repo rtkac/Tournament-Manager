@@ -10,7 +10,7 @@ import { ModalBodyDiv, ModalBodyIcon, ModalBodyPar } from './Modal.component.sty
 
 const ModalComponent = (props: ModalComponentProps) => {
   const { t } = useTranslation();
-  const [css, theme] = useStyletron();
+  const [, theme] = useStyletron();
 
   const [isOpen, setIsOpen] = useState(false);
 

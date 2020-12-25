@@ -8,7 +8,7 @@ import { Check, Delete } from 'baseui/icon';
 import { ResultDiv, ResultTitle, ResultIcon, ResultSubTitle } from './ResultScreen.component.style';
 
 const ResultScreen = (props: ResultScreenProps) => {
-  const [css, theme] = useStyletron();
+  const [, theme] = useStyletron();
 
   const Icon = () =>
     props.isLoading ? (

@@ -1,4 +1,4 @@
-import { logout } from 'actions/login.actions';
+// import { logout } from 'actions/login.actions';
 
 const parseResponse = (response) => {
   switch (response.status) {

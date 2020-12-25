@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { History, LocationState } from 'history';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import _ from 'lodash';
 import T from 'i18n/translationsKeyMapping';
 import { ROUTES } from 'router/routes';
 
-import { fetchLeagues } from 'actions/football.actions';
+import { fetchLeagues, fetchTeams, selectLeagueId } from 'actions/football.actions';
 
 import ButtonGroup from 'components/button-group/ButtonGroup.component';
 import InputComponent from 'components/input/Input.component';
@@ -18,22 +18,39 @@ enum FIELD_IDS {
   FIRST_NAME = 'firstName',
   LAST_NAME = 'lastName',
   LEAGUE = 'league',
-  FAVOURITE_TEAM = 'favouriteTeam',
+  TEAM = 'team',
 }
 
 interface FormData {
   firstName: string;
   lastName: string;
   league: any;
-  favouriteTeam: any;
+  team: any;
 }
 
 const ProfileEditForm = (props: ProfileEditFormProps) => {
-  const { t, history, isAuthenticated, fetchLeagues, leagues, isFetchingLeagues } = props;
+  const {
+    t,
+    history,
+    isAuthenticated,
+    fetchLeagues,
+    fetchTeams,
+    selectLeagueId,
+    leagues,
+    isFetchingLeagues,
+    selectedLeagueId,
+  } = props;
 
   useEffect(() => {
-    fetchLeagues();
+    if (isAuthenticated) {
+      fetchLeagues();
+    }
   }, [isAuthenticated, fetchLeagues]);
+
+  useEffect(() => {
+    // console.log(selectedLeagueId)
+    // selectedLeagueId && fetchTeams(selectedLeagueId);
+  }, [fetchTeams, selectedLeagueId]);
 
   const actionButtons = [
     {
@@ -51,7 +68,7 @@ const ProfileEditForm = (props: ProfileEditFormProps) => {
   });
   const { handleSubmit, register, errors } = methods;
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = () => {
     if (_.isEmpty(errors)) {
       return undefined;
     }
@@ -76,14 +93,13 @@ const ProfileEditForm = (props: ProfileEditFormProps) => {
         label={t(T.PROFILE.EDIT.FORM.LEAGUE.LABEL)}
         errors={errors}
         selectRef={register}
-        options={leagues.map((league) => ({
-          id: league.name,
-        }))}
+        options={leagues}
         isLoading={isFetchingLeagues}
+        onChange={(val) => val && val[0] && val[0].id && selectLeagueId(val[0].id)}
       />
       <SelectComponent
-        name={FIELD_IDS.FAVOURITE_TEAM}
-        label={t(T.PROFILE.EDIT.FORM.FAVOURITE_TEAM.LABEL)}
+        name={FIELD_IDS.TEAM}
+        label={t(T.PROFILE.EDIT.FORM.TEAM.LABEL)}
         errors={errors}
         selectRef={register}
         options={[
@@ -109,17 +125,23 @@ interface ProfileEditFormProps {
     email: string;
   };
   fetchLeagues: () => any;
+  fetchTeams: (leagueId: number) => any;
+  selectLeagueId: (leagueId: number) => any;
   leagues: any[];
   isAuthenticated: boolean;
   isFetchingLeagues: boolean;
+  selectedLeagueId: number;
 }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
   leagues: state.football.leagues,
   isFetchingLeagues: state.football.isFetchingLeagues,
+  selectedLeagueId: state.football.selectedLeagueId,
 });
 
 export default connect(mapStateToProps, {
   fetchLeagues,
+  fetchTeams,
+  selectLeagueId,
 })(ProfileEditForm);

@@ -45,7 +45,7 @@ const Confirmation = (props: ConfirmationProps) => {
         }
       });
     }
-  }, [computedMatch.params.accessToken, signupConfirmation]);
+  }, [computedMatch.params.accessToken, signupConfirmation, confirmEmail]);
 
   return !confirmEmail ? (
     <Redirect to={ROUTES.LOGIN} />

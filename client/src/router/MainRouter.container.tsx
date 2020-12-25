@@ -46,7 +46,7 @@ const MainRouter = (props: MainRouterProps) => {
     if (!props.location.pathname.includes('confirmation')) {
       authenticate();
     }
-  }, [authenticate]);
+  }, [props.location.pathname, authenticate]);
 
   const historyProps = {
     t,

@@ -24,6 +24,13 @@ export const FETCH_SIGNUP_CONFIRMATION_SUCCESS = 'FETCH_SIGNUP_CONFIRMATION_SUCC
 export const FETCH_LEAGUES_TRIGGERED = 'FETCH_LEAGUES_TRIGGERED';
 export const FETCH_LEAGUES_FAILED = 'FETCH_LEAGUES_FAILED';
 export const FETCH_LEAGUES_SUCCESS = 'FETCH_LEAGUES_SUCCESS';
+// Fetch teams
+export const FETCH_TEAMS_TRIGGERED = 'FETCH_TEAMS_TRIGGERED';
+export const FETCH_TEAMS_FAILED = 'FETCH_TEAMS_FAILED';
+export const FETCH_TEAMS_SUCCESS = 'FETCH_TEAMS_SUCCESS';
+
+// Select league id
+export const SELECT_LEAGUE_ID = 'SELECT_LEAGUE_ID';
 
 type PromiseAction = (response: Response, dispatch, state, rest) => void;
 
@@ -53,4 +60,11 @@ export interface FetchLeaguesAction extends PromiseActionBase {
   onRequest: typeof FETCH_LEAGUES_TRIGGERED;
   onFailure: typeof FETCH_LEAGUES_FAILED;
   onSuccess: typeof FETCH_LEAGUES_SUCCESS;
+}
+
+// Fetch teams actions types
+export interface FetchTeamsAction extends PromiseActionBase {
+  onRequest: typeof FETCH_TEAMS_TRIGGERED;
+  onFailure: typeof FETCH_TEAMS_FAILED;
+  onSuccess: typeof FETCH_TEAMS_SUCCESS;
 }

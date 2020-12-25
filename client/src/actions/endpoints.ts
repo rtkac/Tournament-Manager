@@ -19,5 +19,5 @@ export default {
    * Football endpoints
    */
   LEAGUE_ENDPOINT: `${apiFootbalPath}/v2/competitions`,
-  TEAMS_ENDPOINT: (leagueId) => `${apiFootbalPath}/v2/teams/league/${leagueId}`,
+  TEAMS_ENDPOINT: (leagueId) => `${apiFootbalPath}/v2/competitions/${leagueId}/teams`,
 };

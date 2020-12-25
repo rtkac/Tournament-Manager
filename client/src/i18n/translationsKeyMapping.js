@@ -88,9 +88,6 @@ export default {
             LABEL: 'profile.edit.form.button.save.label',
           },
         },
-        FAVOURITE_TEAM: {
-          LABEL: 'profile.edit.form.favourite_team.label',
-        },
         FIRST_NAME: {
           LABEL: 'profile.edit.form.first_name.label',
         },
@@ -99,6 +96,9 @@ export default {
         },
         LEAGUE: {
           LABEL: 'profile.edit.form.league.label',
+        },
+        TEAM: {
+          LABEL: 'profile.edit.form.team.label',
         },
       },
       HEADER: {

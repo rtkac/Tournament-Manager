@@ -12,7 +12,8 @@ export const validations: yup.ObjectSchema<ProfileEdit> = yup
   .shape({
     firstName: yup.string().required('validation.first_name.error.required'),
     lastName: yup.string().required('validation.last_name.error.required'),
-    league: yup.array().required('validation.league.error.required'),
+    // league: yup.array().required('validation.league.error.required'),
+    league: yup.array().required('asd'),
     favouriteTeam: yup.array().required('validation.favourite_team.error.required'),
   })
   .defined();
